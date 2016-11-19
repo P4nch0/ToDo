@@ -79,8 +79,21 @@
             function startTimer (x) {
                 var id = x.value;
                 var timer = $("#"+id).text();
-                
-                alert(timer);
+                var hr = parseInt(timer.split(':')[0]);
+                var min = parseInt(timer.split(':')[1]);
+                var sec = parseInt(timer.split(':')[2]);
+                // alert("hr: " + hr + "min: " + min + "sec: " + sec);
+                var tmer = setInterval(function(){
+                    if (sec != 0) sec -= 1;
+                    if (sec == 0 && min != 0) min -= 1;
+                    if (sec == 0 && min == 0 && sec != 0) sec -= 1;
+                    $("#"+id).text(hr+":"+min+":"+sec);
+                    if (hr == min == sec == 0) {
+                        alert("Time Out");
+                        clearInterval(tmer);
+                    }
+                    //alert("Hello"); 
+                }, 1000);
                 
             }
             

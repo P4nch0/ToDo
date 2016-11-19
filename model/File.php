@@ -1,7 +1,7 @@
 <?php
     include('../controller/connection.php');
 
-        $myfile = fopen("../tasks.txt", "w") or die("Unable to open file!");
+        $myfile = fopen("tasks.txt", "w") or die("Unable to open file!");
 
 # THIS QUERY OBTAINS ALL THE TASKS IN THE DATABASES
         $sql = 'SELECT * FROM tasks ORDER BY  status ASC, priority ASC;';
@@ -26,6 +26,17 @@
         }
     # the file is closed
         fclose($myfile);
+
+    header('Content-Type: application/octet-stream');
+    header('Content-Disposition: attachment; filename='.basename('tasks.txt'));
+    header('Expires: 0');
+    header('Cache-Control: must-revalidate');
+    header('Pragma: public');
+    header('Content-Length: ' . filesize('tasks.txt'));
+    readfile('tasks.txt');
+    exit;
+
+
         echo "<script>alert('FILE CREATED!'); location.href='../index.php';</script>";
     
 ?>

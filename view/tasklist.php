@@ -47,7 +47,7 @@
                                                        $tim = "<td>--:--:--</td>";
                                                       }
                                     elseif ($row[5] == 0) { $done = "<td>
-                                    <form method='post' action=''><button class='btn waves-effect waves-light orange' value='finish'>Edit</button></form><br/>
+                                    <form method='post' action='view/updatetask.php'><button class='btn waves-effect waves-light orange' name='upd' value='$row[0]'>Edit</button></form><br/>
                                     <form method='post' action='model/finish.php'><button class='btn waves-effect waves-light orange lighten-2' name='fin' value='$row[0]'>Finish</button></form><br/>
                                     <form method='post' action='model/delete.php'><button type='submit' class='btn waves-effect waves-light red darken-2' name='del' value='$row[0]'>Delete</button></form>
                                     </td>";

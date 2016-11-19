@@ -59,7 +59,7 @@
                                         <td>$row[0]</td>
                                         <td>$row[1]</td>
                                         $tim
-                                        <td>$row[3]</td>
+                                        <td><span id='start$row[0]start$row[0]'>$row[3]<span/></td>
                                         <td>$row[4]</td>
                                         $done
                                 </tr>");
@@ -77,22 +77,36 @@
         <script>
             // the button triggers the timer function, it obtains the actual value and begins the count down
             function startTimer (x) {
+                // obtain values from timer 1
                 var id = x.value;
                 var timer = $("#"+id).text();
                 var hr = parseInt(timer.split(':')[0]);
                 var min = parseInt(timer.split(':')[1]);
                 var sec = parseInt(timer.split(':')[2]);
+                // obtain values for time 2
+                var timer2 = $("#"+id+id).text();
+                var hr2 = parseInt(timer2.split(':')[0]);
+                var min2 = parseInt(timer2.split(':')[1]);
+                var sec2 = parseInt(timer2.split(':')[2]);
                 // alert("hr: " + hr + "min: " + min + "sec: " + sec);
                 var tmer = setInterval(function(){
+                    // this sets the time for the count down
                     if (sec != 0) sec -= 1;
                     if (sec == 0 && min != 0) min -= 1;
                     if (sec == 0 && min == 0 && sec != 0) sec -= 1;
                     $("#"+id).text(hr+":"+min+":"+sec);
+                    // this adds the time for the total time
+                    sec2 += 1;
+                    if (sec2 == 60) { sec2 = 00; min2 +=1; }
+                    if (sec2 == 0 && min2 == 0) { min2 = 00; hr +=1; }
+                    $("#"+id+id).text(hr2+":"+min2+":"+sec2);
+                    // when timer 1 reaches 0, stop the timer and exit
                     if (hr == min == sec == 0) {
                         alert("Time Out");
                         clearInterval(tmer);
                     }
-                    //alert("Hello"); 
+                    
+ 
                 }, 1000);
                 
             }

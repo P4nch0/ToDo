@@ -40,21 +40,25 @@
                                     elseif ($row[4] === "2") $row[4] = "Medium";
                                     elseif ($row[4] === "3") $row[4] = "Low";
                                     
-                                    if ($row[5] == 1) $done = "<td>Task Completed
+                                    if ($row[5] == 1) { $done = "<td>Task Completed
                                                                 <form method='post' action='model/delete.php'>
                                                                     <button type='submit' class='btn waves-effect waves-light red darken-2' name='del' value='$row[0]'>Delete
                                                                     </button></form>";
-                                    elseif ($row[5] == 0) $done = "<td>
+                                                       $tim = "<td>--:--:--</td>";
+                                                      }
+                                    elseif ($row[5] == 0) { $done = "<td>
                                     <form method='post' action=''><button class='btn waves-effect waves-light orange' value='finish'>Edit</button></form><br/>
                                     <form method='post' action='model/finish.php'><button class='btn waves-effect waves-light orange lighten-2' name='fin' value='$row[0]'>Finish</button></form><br/>
                                     <form method='post' action='model/delete.php'><button type='submit' class='btn waves-effect waves-light red darken-2' name='del' value='$row[0]'>Delete</button></form>
                                     </td>";
+                                                      $tim = "<td>  <span id='start$row[0]'>$row[2]</span> <button onclick='startTimer(this)' value ='start$row[0]' class='btn-floating waves-effect waves-light blue'>Go</button></td>";   
+                                                          }
                                     
                                     print_r("
                                     <tr class='hoverable'>
                                         <td>$row[0]</td>
                                         <td>$row[1]</td>
-                                        <td>$row[2] <button onclick='startTimer();' id ='start$row[0]' class='btn-floating waves-effect waves-light blue'>Go</button></td>
+                                        $tim
                                         <td>$row[3]</td>
                                         <td>$row[4]</td>
                                         $done
@@ -72,9 +76,14 @@
 
         <script>
             // the button triggers the timer function, it obtains the actual value and begins the count down
-            function startTimer () {
-                alert("Timer!");
+            function startTimer (x) {
+                var id = x.value;
+                var timer = $("#"+id).text();
+                
+                alert(timer);
+                
             }
+            
         </script>
 
 

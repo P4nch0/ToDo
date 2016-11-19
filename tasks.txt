@@ -1,0 +1,19 @@
+
+            TASK 1 ----------------------
+                Description:  Investigate design patterns
+                Timer 1: Investigate design patterns
+                Timer 2: 00:00:00
+                Priority: Medium
+                Status: 0
+            TASK 2 ----------------------
+                Description:  Investigate refactoring patterns
+                Timer 1: Investigate refactoring patterns
+                Timer 2: 00:00:00
+                Priority: Low
+                Status: 0
+            TASK 3 ----------------------
+                Description:  Finish project
+                Timer 1: Finish project
+                Timer 2: 00:00:00
+                Priority: High
+                Status: 1

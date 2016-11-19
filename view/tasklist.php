@@ -13,9 +13,10 @@
                 <div class="card-content white-text">
                     
                     <!-- Modal Trigger -->
-                    <a class="waves-effect waves-light btn orange darken-3" href="view/new.php">New Task</a>
+                    <a class="waves-effect waves-light btn orange darken-3" href="view/new.php">New Task</a><br/><br/><br/>
+                    <form method='post' action='model/File.php'><button class='btn waves-effect waves-light' name='fin'>Print file</button></form><br/>
 
-                    <table>
+                    <table class="bordered">
                         <thead>
                           <tr>
                               <th>Task #</th>
@@ -30,16 +31,24 @@
                         <tbody>
 
                             <?php
+                                # THIS QUERY OBTAINS ALL THE TASKS IN THE DATABASES
                                 $sql = 'SELECT * FROM tasks ORDER BY  status ASC, priority ASC;';
                                 $result = mysqli_query($db,$sql);
                                 while ($row = mysqli_fetch_array($result)) {
-                                    # THIS QUERY OBTAINS ALL THE TASKS IN THE DATABASES AND FILLS THE TABLE WITH THEM
+                                    # while the result from the query has data, a table row with the information of each task is printed 
                                     if ($row[4] === "1") $row[4] = "High";
                                     elseif ($row[4] === "2") $row[4] = "Medium";
                                     elseif ($row[4] === "3") $row[4] = "Low";
                                     
-                                    if ($row[5] == 1) $done = "<td>Task Completed  <button class='btn waves-effect waves-light red darken-2'>Delete</button></td>";
-                                    elseif ($row[5] == 0) $done = "<td><button class='btn waves-effect waves-light orange'>Finish</button> <button class='btn waves-effect waves-light orange lighten-2'>Edit</button> <button class='btn waves-effect waves-light red darken-2'>Delete</button></td>";
+                                    if ($row[5] == 1) $done = "<td>Task Completed
+                                                                <form method='post' action='model/delete.php'>
+                                                                    <button type='submit' class='btn waves-effect waves-light red darken-2' name='del' value='$row[0]'>Delete
+                                                                    </button></form>";
+                                    elseif ($row[5] == 0) $done = "<td>
+                                    <form method='post' action=''><button class='btn waves-effect waves-light orange' value='finish'>Edit</button></form><br/>
+                                    <form method='post' action='model/finish.php'><button class='btn waves-effect waves-light orange lighten-2' name='fin' value='$row[0]'>Finish</button></form><br/>
+                                    <form method='post' action='model/delete.php'><button type='submit' class='btn waves-effect waves-light red darken-2' name='del' value='$row[0]'>Delete</button></form>
+                                    </td>";
                                     
                                     print_r("
                                     <tr class='hoverable'>
@@ -50,6 +59,7 @@
                                         <td>$row[4]</td>
                                         $done
                                 </tr>");
+                                    
                                 }
                             ?>
                           </tr>
@@ -61,8 +71,9 @@
         </div>
 
         <script>
+            // the button triggers the timer function, it obtains the actual value and begins the count down
             function startTimer () {
-                alert("SI");
+                alert("Timer!");
             }
         </script>
 
